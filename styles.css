@@ -1,0 +1,267 @@
+@charset "UTF-8";
+/* =========================
+   Grupo Figini • Responsive UI
+   ========================= */
+/* ---- Variables ---- */
+/* ---- Breakpoints ---- */
+/* ---- Reset mínimo / Base ---- */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #0a0a0a;
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- Layout helpers ---- */
+.container, .gf-hero {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: clamp(12px, 3vw, 24px);
+}
+
+/* ---- Header ---- */
+.gf-header {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  z-index: 20;
+}
+
+.gf-logo-wrap {
+  display: grid;
+  place-items: center;
+  padding: 12px 16px;
+}
+@media (min-width: 768px) {
+  .gf-logo-wrap {
+    padding: 14px 20px;
+  }
+}
+@media (min-width: 1024px) {
+  .gf-logo-wrap {
+    padding: 18px 24px;
+  }
+}
+
+.gf-logo {
+  height: clamp(46px, 6vw, 72px);
+  width: auto;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* ---- Main / Hero ---- */
+.gf-main {
+  padding: 28px 16px 110px;
+}
+@media (min-width: 768px) {
+  .gf-main {
+    padding: 40px 20px 140px;
+  }
+}
+@media (min-width: 1024px) {
+  .gf-main {
+    padding: 56px 20px 170px;
+  }
+}
+
+.gf-hero {
+  text-align: center;
+}
+
+.gf-title {
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(44px, 7vw, 88px);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  margin: 8px 0;
+  color: #0a0a0a;
+}
+
+.gf-subtitle {
+  font-size: clamp(16px, 2.2vw, 20px);
+  color: rgba(0, 0, 0, 0.72);
+  margin: 8px auto 0;
+  max-width: 720px;
+}
+@media (min-width: 1024px) {
+  .gf-subtitle {
+    font-size: 20px;
+    max-width: 820px;
+  }
+}
+
+/* ---- Bottom Navigation ---- */
+/* Pediste: enlaces negros con texto blanco, siempre elegantes. */
+.gf-bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  z-index: 30;
+  /* En pantallas medianas, aumenta separación para dedos (44px mínimo) */
+  /* En pantallas grandes: barra centrada tipo "pill" para que no tape contenido */
+}
+@media (min-width: 768px) {
+  .gf-bottom-nav {
+    gap: 10px;
+    padding: 12px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+}
+@media (min-width: 1024px) {
+  .gf-bottom-nav {
+    width: min(900px, 96%);
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 18px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 18px;
+    padding: 12px;
+  }
+}
+@media (min-width: 1280px) {
+  .gf-bottom-nav {
+    width: min(980px, 92%);
+    bottom: 22px;
+    border-radius: 20px;
+  }
+}
+
+.gf-nav-item {
+  --bg: #000; /* negro */
+  --fg: #fff; /* blanco */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px; /* accesibilidad táctil */
+  background: var(--bg);
+  color: var(--fg);
+  text-decoration: none;
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  font-size: 14px;
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+  user-select: none;
+  /* Mantener look negro/blanco al interactuar */
+}
+.gf-nav-item:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.18);
+}
+.gf-nav-item:active {
+  transform: translateY(1px) scale(0.99);
+}
+.gf-nav-item .gf-icon {
+  display: inline-flex;
+  line-height: 0;
+}
+.gf-nav-item .gf-label {
+  /* “Siempre elegante” → usa tipografía UI sobria y blanca */
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: #ffffff;
+  font-size: 13.5px;
+}
+@media (min-width: 768px) {
+  .gf-nav-item .gf-label {
+    font-size: 14px;
+  }
+}
+
+.gf-nav-item.is-active {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+}
+
+/* ---- Espaciado seguro para iOS (sin superponer contenido) ---- */
+.has-bottom-safe {
+  padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+}
+
+/* ---- Reducción de movimiento ---- */
+@media (prefers-reduced-motion: reduce) {
+  .gf-nav-item {
+    transition: none !important;
+  }
+}
+/* ---- Soporte de dark-mode opcional (por si el SO del usuario lo forcea)
+   Mantengo negro sobre blanco para respetar el pedido,
+   solo suavizo bordes/sombras para no “reventar” en OLED. ---- */
+@media (prefers-color-scheme: dark) {
+  .gf-bottom-nav {
+    border-top-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+}
+/* ===== Fondo dinámico con degradado ===== */
+#site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1; /* detrás del contenido */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* el degradado se inyecta junto a la imagen desde JS usando background-image */
+}
+
+#site-bg.is-active {
+  opacity: 1;
+}
+
+/* Respeta usuarios con reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  #site-bg {
+    transition: none;
+  }
+}
+/* ===== Secciones genéricas ===== */
+.gf-section {
+  padding: clamp(48px, 8vw, 96px) 0;
+  background: transparent; /* el fondo lo maneja #site-bg */
+}
+
+.gf-h2 {
+  margin: 0 0 12px;
+  font: 600 clamp(22px, 4vw, 30px)/1.2 "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  letter-spacing: 0.2px;
+  color: #0a0a0a;
+}
+
+.gf-p {
+  margin: 0;
+  max-width: 900px;
+  color: rgba(0, 0, 0, 0.75);
+  font-size: clamp(16px, 2.5vw, 18px);
+}
+
+/* Espaciado extra para que la bottom-nav no tape el fin de secciones en mobile */
+.gf-section:last-child {
+  padding-bottom: clamp(96px, 12vw, 120px);
+}
+
+/*# sourceMappingURL=styles.css.map */

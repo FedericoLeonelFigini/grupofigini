@@ -1,0 +1,237 @@
+/* =========================
+   Grupo Figini • Responsive UI
+   ========================= */
+
+/* ---- Variables ---- */
+$bg: #ffffff;
+$text: #0a0a0a;
+$black: #000000;
+$white: #ffffff;
+
+$elegant: 'Great Vibes', cursive; // título manuscrito
+$ui: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+
+$shadow-soft: 0 10px 30px rgba(0,0,0,.06);
+$shadow-strong: 0 6px 20px rgba(0,0,0,.28);
+
+/* ---- Breakpoints ---- */
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+
+@mixin up($w) {
+  @media (min-width: $w) { @content; }
+}
+
+/* ---- Reset mínimo / Base ---- */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: $bg;
+  color: $text;
+  font-family: $ui;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- Layout helpers ---- */
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: clamp(12px, 3vw, 24px);
+}
+
+/* ---- Header ---- */
+.gf-header {
+  position: sticky;
+  top: 0;
+  background: $bg;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  z-index: 20;
+}
+.gf-logo-wrap {
+  display: grid;
+  place-items: center;
+  padding: 12px 16px;
+
+  @include up($bp-md) { padding: 14px 20px; }
+  @include up($bp-lg) { padding: 18px 24px; }
+}
+.gf-logo {
+  height: clamp(46px, 6vw, 72px);
+  width: auto;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* ---- Main / Hero ---- */
+.gf-main {
+  padding: 28px 16px 110px; // deja espacio para la bottom-nav en mobile
+  @include up($bp-md) { padding: 40px 20px 140px; }
+  @include up($bp-lg) { padding: 56px 20px 170px; }
+}
+.gf-hero {
+  @extend .container;
+  text-align: center;
+}
+.gf-title {
+  font-family: $elegant;
+  font-size: clamp(44px, 7vw, 88px);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  margin: 8px 0;
+  color: $text;
+}
+.gf-subtitle {
+  font-size: clamp(16px, 2.2vw, 20px);
+  color: rgba(0,0,0,.72);
+  margin: 8px auto 0;
+  max-width: 720px;
+
+  @include up($bp-lg) {
+    font-size: 20px;
+    max-width: 820px;
+  }
+}
+
+/* ---- Bottom Navigation ---- */
+/* Pediste: enlaces negros con texto blanco, siempre elegantes. */
+.gf-bottom-nav {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  background: $bg;
+  border-top: 1px solid rgba(0,0,0,.08);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+  box-shadow: $shadow-soft;
+  z-index: 30;
+
+  /* En pantallas medianas, aumenta separación para dedos (44px mínimo) */
+  @include up($bp-md) {
+    gap: 10px;
+    padding: 12px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* En pantallas grandes: barra centrada tipo "pill" para que no tape contenido */
+  @include up($bp-lg) {
+    width: min(900px, 96%);
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 18px;
+    border: 1px solid rgba(0,0,0,.06);
+    border-radius: 18px;
+    padding: 12px;
+  }
+
+  @include up($bp-xl) {
+    width: min(980px, 92%);
+    bottom: 22px;
+    border-radius: 20px;
+  }
+}
+
+.gf-nav-item {
+  --bg: #000;      /* negro */
+  --fg: #fff;      /* blanco */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;              /* accesibilidad táctil */
+  background: var(--bg);
+  color: var(--fg);
+  text-decoration: none;
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-weight: 600;
+  letter-spacing: .2px;
+  font-size: 14px;
+  outline: none;
+  border: 1px solid rgba(255,255,255,.12);
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  user-select: none;
+
+  /* Mantener look negro/blanco al interactuar */
+  &:focus-visible { box-shadow: 0 0 0 3px rgba(0,0,0,.18); }
+  &:active { transform: translateY(1px) scale(.99); }
+
+  .gf-icon { display: inline-flex; line-height: 0; }
+  .gf-label {
+    /* “Siempre elegante” → usa tipografía UI sobria y blanca */
+    font-family: $ui;
+    color: $white;
+    font-size: 13.5px;
+
+    @include up($bp-md) { font-size: 14px; }
+  }
+}
+
+.gf-nav-item.is-active { box-shadow: $shadow-strong; }
+
+/* ---- Espaciado seguro para iOS (sin superponer contenido) ---- */
+.has-bottom-safe {
+  padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+}
+
+/* ---- Reducción de movimiento ---- */
+@media (prefers-reduced-motion: reduce) {
+  .gf-nav-item { transition: none !important; }
+}
+
+/* ---- Soporte de dark-mode opcional (por si el SO del usuario lo forcea)
+   Mantengo negro sobre blanco para respetar el pedido,
+   solo suavizo bordes/sombras para no “reventar” en OLED. ---- */
+@media (prefers-color-scheme: dark) {
+  .gf-bottom-nav {
+    border-top-color: rgba(255,255,255,.08);
+    box-shadow: 0 10px 30px rgba(0,0,0,.4);
+  }
+}
+/* ===== Fondo dinámico con degradado ===== */
+#site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1; /* detrás del contenido */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .45s ease;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* el degradado se inyecta junto a la imagen desde JS usando background-image */
+}
+#site-bg.is-active { opacity: 1; }
+
+/* Respeta usuarios con reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  #site-bg { transition: none; }
+}
+
+/* ===== Secciones genéricas ===== */
+.gf-section {
+  padding: clamp(48px, 8vw, 96px) 0;
+  background: transparent; /* el fondo lo maneja #site-bg */
+}
+.gf-h2 {
+  margin: 0 0 12px;
+  font: 600 clamp(22px, 4vw, 30px) / 1.2 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  letter-spacing: .2px;
+  color: #0a0a0a;
+}
+.gf-p {
+  margin: 0;
+  max-width: 900px;
+  color: rgba(0,0,0,.75);
+  font-size: clamp(16px, 2.5vw, 18px);
+}
+
+/* Espaciado extra para que la bottom-nav no tape el fin de secciones en mobile */
+.gf-section:last-child {
+  padding-bottom: clamp(96px, 12vw, 120px);
+}
