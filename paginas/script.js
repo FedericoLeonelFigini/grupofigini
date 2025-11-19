@@ -1,24 +1,10 @@
 // Configuración del fondo de inversión
-const INITIAL_CAPITAL = 1_000_000;       // Capital inicial en ARS
-const ANNUAL_RATE = 0.30;               // 30% anual
-const STORAGE_KEY = "capitalStartTime"; // Clave en localStorage
+const INITIAL_CAPITAL = 1_000_000; // Capital inicial en ARS
+const ANNUAL_RATE = 0.30;         // 30% anual
 
-// Devuelve el timestamp de inicio (en ms). Lo guarda si no existe.
-function getStartTime() {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      const parsed = parseInt(stored, 10);
-      if (!isNaN(parsed)) return parsed;
-    }
-    const now = Date.now();
-    localStorage.setItem(STORAGE_KEY, String(now));
-    return now;
-  } catch (e) {
-    // Si localStorage falla (modo incógnito raro, etc.) usamos ahora
-    return Date.now();
-  }
-}
+// FECHA DE INICIO GLOBAL DEL FONDO (CAMBIABLE)
+// Ejemplo: 1 de enero de 2025, 00:00 en Argentina (UTC-3)
+const GLOBAL_START_DATE = new Date("2025-01-01T00:00:00-03:00").getTime();
 
 // Formateador para pesos argentinos
 const formatter = new Intl.NumberFormat("es-AR", {
@@ -32,15 +18,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const capitalValueEl = document.querySelector(".capital-value");
   if (!capitalValueEl) return;
 
-  const startTime = getStartTime();
-
   function updateCapital() {
     const now = Date.now();
-    const elapsedMs = now - startTime;
+    const elapsedMs = now - GLOBAL_START_DATE;
     const years = elapsedMs / (1000 * 60 * 60 * 24 * 365); // años transcurridos
 
+    // Si por alguna razón la fecha actual es anterior al inicio, no mostramos negativo
+    const t = Math.max(years, 0);
+
     // Interés compuesto continuo: A = P * e^(r * t)
-    const amount = INITIAL_CAPITAL * Math.exp(ANNUAL_RATE * years);
+    const amount = INITIAL_CAPITAL * Math.exp(ANNUAL_RATE * t);
 
     capitalValueEl.textContent = formatter.format(amount);
     requestAnimationFrame(updateCapital);
