@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Socios | Capital Compuesto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="navbar-logo">PROYECTO CAPITAL</div>
+      <div class="navbar-links">
+        <a href="index.html">Home</a>
+        <a href="socios.html">Socios</a>
+        <a href="proyectos.html">Proyectos</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Texto original (lo dejamos igual) -->
+    <section class="card">
+      <h1>Socios</h1>
+
+
+      <!-- NUEVA sección: tarjetas de socios -->
+      <div class="partners-grid">
+        <!-- Tarjeta Tusitiowebadistancia -->
+        <article class="partner-card">
+          <img src="../imagenes/imagen1.png" alt="Tusitiowebadistancia" />
+          <div>
+            <div class="partner-info-title">Tusitiowebadistancia</div>
+            <p class="partner-info-text">
+              Plataforma que conecta programadores con clientes para crear sitios web y proyectos digitales.
+              Conocé más en
+              <a href="https://tusitiowebadistancia.com" target="_blank" rel="noopener noreferrer">
+                tusitiowebadistancia.com
+              </a>.
+            </p>
+          </div>
+        </article>
+
+        <!-- Tarjeta SHAGA -->
+        <article class="partner-card">
+          <img src="../imagenes/imagen2.png" alt="Shaga" />
+          <div>
+            <div class="partner-info-title">Shaga</div>
+            <p class="partner-info-text">
+              Algoritmos matemáticos y desarrollo de software orientados a la optimización de proyectos,
+              inversiones y herramientas digitales.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Contador de capital compartido en todas las páginas -->
+  <div class="capital-counter">
+    <span class="capital-label">Capital:</span>
+    <span class="capital-value">$ 0,00</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
